@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title>1 - Instrukcja warunkowa w JavaScript</title>
+    <style>
+        body {
+            background: #1a1e23;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            padding: 40px;
+            border-radius: 20px;
+            background-color: #333;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+        }
+
+        input[type="number"], input[type="submit"] {
+            padding: 10px 15px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            cursor: pointer;
+            background-color: orangered;
+            color: white;
+        }
+
+        .yellow { color: yellow; }
+        .green { color: green; }
+        .red { color: red; }
+        .orangered { color: orangered; }
+
+        .bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: floatUp 10s linear infinite, sway 15s ease-in-out infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-110vh);
+            }
+        }
+
+        @keyframes sway {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(50px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bubbles">
+        <!-- Adding more bubbles dynamically -->
+        <script>
+            for (let i = 0; i < 30; i++) {
+                let bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                document.querySelector('.bubbles').appendChild(bubble);
+                bubble.style.width = `${Math.random() * 10 + 5}px`;
+                bubble.style.height = bubble.style.width;
+                bubble.style.left = `${Math.random() * 100}vw`;
+                bubble.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                bubble.style.animationDelay = `${Math.random() * 5}s`;
+                bubble.style.animationTimingFunction = 'linear';
+                bubble.style.animationName = 'floatUp';
+                bubble.style.animationIterationCount = 'infinite';
+            }
+        </script>
+    </div>
+    <div class="container">
+        <label>
+            Podaj numer dnia tygodnia (1-7): <input type="number" id="dayNumber" min="1" max="7">
+        </label>
+        <input type="submit" value="Zobacz nazwę dnia" onclick="getDayName()">
+        <div id="wynik" class="orangered"></div>
+    </div>
+    <script>
+        function getDayName() {
+            var input = document.getElementById('dayNumber').value;
+            var dayNum = parseInt(input);
+            var result = document.getElementById('wynik');
+
+            switch(dayNum) {
+                case 1:
+                    result.innerHTML = "Pierwszy dzień tygodnia to Monday - poniedziałek";
+                    break;
+                case 2:
+                    result.innerHTML = "Drugi dzień tygodnia to Tuesday - wtorek";
+                    break;
+                case 3:
+                    result.innerHTML = "Trzeci dzień tygodnia to Wednesday - środa";
+                    break;
+                case 4:
+                    result.innerHTML = "Czwarty dzień tygodnia to Thursday - czwartek";
+                    break;
+                case 5:
+                    result.innerHTML = '<span class="yellow">Piąty dzień tygodnia to Friday - piątek, piąteczek, piątunio</span>';
+                    break;
+                case 6:
+                    result.innerHTML = '<span class="green">Szósty dzień tygodnia to Saturday - sobota</span>';
+                    break;
+                case 7:
+                    result.innerHTML = '<span class="green">Siódmy dzień tygodnia to Sunday - niedziela</span>';
+                    break;
+                default:
+                    result.innerHTML = '<span class="red">To nie jest prawidłowy numer dnia tygodnia!</span>';
+            }
+        }
+    </script>
+</body>
+</html>
